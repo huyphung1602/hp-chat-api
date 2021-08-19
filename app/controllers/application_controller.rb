@@ -11,13 +11,16 @@ class ApplicationController < ActionController::API
   helper_method :logged_in?
 
   def current_user    
-    User.find_by(id: session[:user_id])  
+    User.find_by(id: session[:user_id])
   end
 
   def logged_in?
     !current_user.nil?
   end
 
+  def authenticate_user!
+    raise StandardError.new('Permission denied') unless current_user.present?
+  end
 
   private
 

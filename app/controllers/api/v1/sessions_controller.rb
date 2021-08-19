@@ -9,6 +9,6 @@ module Api::V1
       end
 
       json_response({ id: @user.id, user: @user.name })
-   end
+    end
   end
 end

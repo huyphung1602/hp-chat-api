@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :messages
+      resources :rooms
 
       post 'login', to: 'sessions#create'
       post 'sign_up', to: 'users#create'
