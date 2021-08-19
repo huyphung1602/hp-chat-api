@@ -5,7 +5,7 @@ module Api::V1
         {
           id: message.id,
           username: message.user.name,
-          body: message.body,
+          content: message.content,
         }
       end
 
