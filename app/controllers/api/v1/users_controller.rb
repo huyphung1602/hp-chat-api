@@ -1,10 +1,12 @@
 module Api::V1
   class UsersController < ApplicationController
     def create
-      @user = User.create!(user_params)
+      @user = User.create!(user_params.merge(password: params.require(:password)))
       session[:user_id] = @user.id
 
       json_response({ user: @user.name, email: @user.email })
+    rescue StandardError => e
+      json_response({ errors: e.message }, 422)
     end
 
     private
@@ -15,7 +17,6 @@ module Api::V1
         .permit(
           :name,
           :email,
-          :password,
         )
     end
   end

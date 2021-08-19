@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create]
       resources :messages
 
       post 'login', to: 'sessions#create'
+      post 'sign_up', to: 'users#create'
     end
   end
 end
