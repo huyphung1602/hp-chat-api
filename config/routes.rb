@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :rooms
 
       post 'login', to: 'sessions#create'
+      get 'logged_in', to: 'sessions#logged_in'
+
       post 'sign_up', to: 'users#create'
     end
   end

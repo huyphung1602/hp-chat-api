@@ -10,5 +10,9 @@ module Api::V1
 
       json_response({ id: @user.id, user: @user.name })
     end
+
+    def logged_in
+      json_response({ logged_in: logged_in? })
+    end
   end
 end
