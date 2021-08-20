@@ -20,7 +20,13 @@ module Api::V1
 
     def show
       @room = Room.find_by id: params[:id]
-      @messages = @room.messages.includes(:user).order(created_at: :asc)
+      @messages = @room.messages.includes(:user).order(created_at: :asc).map do |message|
+        {
+          id: message.id,
+          content: message.content,
+          owner: message.user.name,
+        }
+      end
       json_response(@messages)
     end
 
