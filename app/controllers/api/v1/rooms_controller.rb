@@ -25,6 +25,7 @@ module Api::V1
           id: message.id,
           content: message.content,
           owner: message.user.name,
+          room_id: message.room_id,
         }
       end
       json_response(@messages)
