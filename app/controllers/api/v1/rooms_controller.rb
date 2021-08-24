@@ -3,14 +3,14 @@ module Api::V1
     before_action :authenticate_user!
 
     def index
-      @rooms = Room.all.includes(:user).map do |room|
+      rooms = current_user.joined_rooms.includes(:owner).map do |room|
         {
           id: room.id,
           name: room.name,
-          owner: room.user.name,
+          owner: room.owner.name,
         }
       end
-      json_response(@rooms)
+      json_response(rooms)
     end
 
     def new
