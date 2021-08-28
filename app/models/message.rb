@@ -10,7 +10,10 @@ class Message < ApplicationRecord
       {
         id: self.id,
         content: self.content,
-        owner: self.user.name,
+        owner: {
+          id: self.user.id,
+          name: self.user.name,
+        },
         room_id: self.room_id,
       }
     )

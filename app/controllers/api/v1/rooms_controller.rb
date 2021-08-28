@@ -24,7 +24,10 @@ module Api::V1
         {
           id: message.id,
           content: message.content,
-          owner: message.user.name,
+          owner: {
+            id: message.user.id,
+            name: message.user.name,
+          },
           room_id: message.room_id,
         }
       end

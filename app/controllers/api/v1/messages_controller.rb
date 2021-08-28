@@ -6,8 +6,12 @@ module Api::V1
       @messages = Message.all.includes(:user).map do |message|
         {
           id: message.id,
-          username: message.user.name,
           content: message.content,
+          owner: {
+            id: message.user.id,
+            name: message.user.name,
+          },
+          room_id: message.room_id,
         }
       end
 
