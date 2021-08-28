@@ -7,7 +7,10 @@ module Api::V1
         {
           id: room.id,
           name: room.name,
-          owner: room.owner.name,
+          owner: {
+            id: room.owner.id,
+            name: room.owner.name,
+          },
         }
       end
       json_response(rooms)
