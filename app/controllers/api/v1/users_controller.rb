@@ -5,10 +5,10 @@ module Api::V1
     def create
       raise StandardError, 'You are logged in!' if logged_in?
 
-      @user = User.create!(user_params.merge(password: params.require(:password)))
-      session[:user_id] = @user.id
+      user = User.create!(user_params.merge(password: params.require(:password)))
+      session[:user_id] = user.id
 
-      json_response({ id: @user.id, user: @user.name })
+      json_response({ id: user.id, user: user.name })
     rescue StandardError => e
       json_response({ errors: e.message }, 422)
     end

@@ -3,7 +3,7 @@ module Api::V1
     before_action :authenticate_user!
 
     def index
-      @messages = Message.all.includes(:user).map do |message|
+      messages = Message.all.includes(:user).map do |message|
         {
           id: message.id,
           content: message.content,
@@ -15,7 +15,7 @@ module Api::V1
         }
       end
 
-      json_response(@messages)
+      json_response(messages)
     end
 
     def create

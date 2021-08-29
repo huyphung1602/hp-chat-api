@@ -3,12 +3,12 @@ module Api::V1
     skip_before_action :verify_authenticity_token, only: [:create]
 
     def create
-      @user = User.find_by(email: params[:email])
-      if @user && @user.authenticate(params[:password])
-         session[:user_id] = @user.id
+      user = User.find_by(email: params[:email])
+      if user && user.authenticate(params[:password])
+         session[:user_id] = user.id
       end
 
-      json_response({ id: @user.id, user: @user.name })
+      json_response({ id: user.id, user: user.name })
     end
 
     def current_user_info
@@ -17,6 +17,11 @@ module Api::V1
         id: logged_in? ? current_user.id : nil,
         name: logged_in? ? current_user.name : nil,
       })
+    end
+
+    def destroy
+      session.delete(:user_id)
+      current_user = nil
     end
   end
 end

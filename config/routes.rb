@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :rooms
 
       post 'login', to: 'sessions#create'
+      post 'log_out', to: 'sessions#destroy'
       get 'current_user_info', to: 'sessions#current_user_info'
 
       post 'sign_up', to: 'users#create'

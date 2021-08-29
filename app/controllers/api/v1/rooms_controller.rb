@@ -17,13 +17,13 @@ module Api::V1
     end
 
     def new
-      @room = current_user.rooms.new
-      json_response(@room)
+      room = current_user.rooms.new
+      json_response(room)
     end
 
     def show
-      @room = Room.find_by id: params[:id]
-      @messages = @room.messages.includes(:user).order(created_at: :asc).map do |message|
+      room = Room.find_by id: params[:id]
+      messages = room.messages.includes(:user).order(created_at: :asc).map do |message|
         {
           id: message.id,
           content: message.content,
@@ -34,14 +34,14 @@ module Api::V1
           room_id: message.room_id,
         }
       end
-      json_response(@messages)
+      json_response(messages)
     end
 
     def create
-      @room = current_user.rooms.new room_params
+      room = current_user.rooms.new room_params
 
-      if @room.save
-        json_response(@room)
+      if room.save
+        json_response(room)
       else
         json_response({ errors: 'Something went wrong. Cannot create new room' }, 422)
       end
