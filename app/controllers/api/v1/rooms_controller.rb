@@ -16,11 +16,6 @@ module Api::V1
       json_response(rooms)
     end
 
-    def new
-      room = current_user.rooms.new
-      json_response(room)
-    end
-
     def show
       room = Room.find_by id: params[:id]
       messages = room.messages.includes(:user).order(created_at: :asc).map do |message|
@@ -38,8 +33,10 @@ module Api::V1
     end
 
     def create
-      room = current_user.rooms.new room_params
-
+      room = Room.new(
+        owner: current_user,
+        room_name: room_params[:name]
+      )
       if room.save
         json_response(room)
       else
@@ -50,7 +47,7 @@ module Api::V1
     private
 
     def room_params
-      params.require(:room).permit :name
+      params.require(:room).permit(:name)
     end
   end
 end
