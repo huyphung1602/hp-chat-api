@@ -35,10 +35,20 @@ module Api::V1
     def create
       room = Room.new(
         owner: current_user,
-        room_name: room_params[:name]
+        name: room_params[:name]
       )
+      current_user.joined_rooms << room
       if room.save
-        json_response(room)
+        json_response(
+          {
+            id: room.id,
+            name: room.name,
+            owner: {
+              id: room.owner.id,
+              name: room.owner.name,
+            },
+          }
+        )
       else
         json_response({ errors: 'Something went wrong. Cannot create new room' }, 422)
       end

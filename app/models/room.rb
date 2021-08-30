@@ -3,6 +3,6 @@ class Room < ApplicationRecord
 
   has_many :messages, dependent: :destroy
 
-  has_many :room_memberships
+  has_many :room_memberships, dependent: :destroy
   has_many :members, through: :room_memberships, source: :user
 end
