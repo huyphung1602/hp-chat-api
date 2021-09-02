@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_09_02_173928) do
     t.string "code"
     t.bigint "room_id", null: false
     t.bigint "user_id", null: false
+    t.datetime "expired_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_invitations_on_room_id"

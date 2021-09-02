@@ -5,6 +5,7 @@ class CreateInvitations < ActiveRecord::Migration[6.1]
       t.references :room, null: false, index: true, foreign_key: true
       t.references :user, null: false, index: true, foreign_key: true
 
+      t.datetime :expired_at
       t.timestamps
     end
   end
