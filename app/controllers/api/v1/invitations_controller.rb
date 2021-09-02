@@ -40,6 +40,7 @@ module Api::V1
         user_id: invitation.user_id,
         room_id: invitation.room_id,
         expired_at: invitation.expired_at,
+        invitation_url: invitation.invitation_url,
       })
     end
   end
