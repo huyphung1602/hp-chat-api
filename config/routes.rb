@@ -13,9 +13,9 @@ Rails.application.routes.draw do
       post 'log_out', to: 'sessions#destroy'
       get 'current_user_info', to: 'sessions#current_user_info'
 
-      namespace :invitation do
-        post 'accept', to: 'invitation#accept'
-        post 'create', to: 'invitation#create'
+      namespace :invitations do
+        post 'accept'
+        post 'create'
       end
     end
   end
