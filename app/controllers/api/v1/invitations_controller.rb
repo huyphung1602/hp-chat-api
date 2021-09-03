@@ -4,18 +4,21 @@ module Api::V1
 
     def accept
       params.require([:code, :id])
-      invitation = Invitation.find_by(id: id, code: code)
+      invitation = Invitation.find_by(id: params[:id], code: params[:code])
 
       raise StandardError.new('Invalid Invitation') unless invitation.present?
 
       if invitation.expired?
         json_response({errors: 'Your invitation link was expired'}, 422)
       else
-        RoomMembership.create!(
-          user: current_user,
-          room: invitation.room,
-        )
-        json_response(invitation.room)
+        unless RoomMembership.find_by(user_id: current_user.id, room_id: invitation.room_id).present?
+          RoomMembership.create!(
+            user: current_user,
+            room: invitation.room,
+          )
+        end
+
+        json_response({ room_id: invitation.room_id })
       end
     end
 

@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :room_memberships, dependent: :destroy
   has_many :joined_rooms, through: :room_memberships, source: :room
+  has_many :invitations
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true

@@ -1,4 +1,7 @@
 class Invitation < ApplicationRecord
+  belongs_to :room
+  belongs_to :user
+
   def expired?
     expired_at < Time.current
   end
