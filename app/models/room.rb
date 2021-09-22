@@ -5,5 +5,5 @@ class Room < ApplicationRecord
 
   has_many :room_memberships, dependent: :destroy
   has_many :members, through: :room_memberships, source: :user
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
 end
